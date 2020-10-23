@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 const { SECRET_KEY } = require("../../config");
+const validateRegisterInput = require("../../util/validators");
 module.exports = {
   Mutation: {
     async register(
@@ -10,6 +11,12 @@ module.exports = {
       { registerInput: { username, email, password, confirmPassword } }
     ) {
       // Validate user data
+      const { valid, errors } = validateRegisterInput(
+        username,
+        email,
+        password,
+        confirmPassword
+      );
       // Make sure user doesn't already exist
       const user = await User.findOne({ username });
       if (user) {
