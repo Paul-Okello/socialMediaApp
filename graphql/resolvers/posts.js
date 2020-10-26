@@ -35,7 +35,7 @@ module.exports = {
         username: user.username,
         createdAt: new Date().toUTCString(),
       });
-      const post = await newPost().save();
+      const post = await newPost.save();
 
       return post;
     },
