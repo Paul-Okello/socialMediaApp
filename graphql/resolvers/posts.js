@@ -36,6 +36,9 @@ module.exports = {
         createdAt: new Date().toUTCString(),
       });
       const post = await newPost.save();
+      context.pubsub.publish("NEW POST", {
+        newPost: post,
+      });
 
       return post;
     },
@@ -71,6 +74,11 @@ module.exports = {
         await post.save();
         return post;
       } else throw new UserInputError("Post not found");
+    },
+  },
+  Subscription: {
+    newPost: {
+      subscribe: (_, { pubsub }) => pubsub.asyncIterator("NEW POST"),
     },
   },
 };
