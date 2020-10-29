@@ -7,17 +7,20 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Container } from "semantic-ui-react";
+import { AuthProvider } from "./Context/auth";
 
 function App() {
   return (
-    <Container fluid>
+    <AuthProvider>
       <Router>
-        <MenuBar />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Container fluid>
+          <MenuBar />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Container>
       </Router>
-    </Container>
+    </AuthProvider>
   );
 }
 
