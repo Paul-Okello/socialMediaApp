@@ -6,6 +6,12 @@ import { Link } from "react-router-dom";
 const PostCard = ({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
 }) => {
+  function likePost() {
+    console.log("Like Post");
+  }
+  function commentOnPost() {
+    console.log("Comment");
+  }
   return (
     <Card fluid>
       <Card.Content>
@@ -21,17 +27,24 @@ const PostCard = ({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button
-          color="red"
-          content="Like"
-          icon="heart"
-          label={{
-            basic: true,
-            color: "red",
-            pointing: "left",
-            content: "2048",
-          }}
-        />
+        <Button as="div" labelPosition="right" onClick={likePost}>
+          <Button color="brown" basic>
+            <Icon name="heart" />
+            Like
+          </Button>
+          <Label as="a" basic color="red" pointing="left">
+            {likeCount}
+          </Label>
+        </Button>
+        <Button as="div" labelPosition="right" onClick={commentOnPost}>
+          <Button color="blue" basic>
+            <Icon name="comment" />
+            Comment
+          </Button>
+          <Label as="a" basic color="blue" pointing="left">
+            {commentCount}
+          </Label>
+        </Button>
       </Card.Content>
     </Card>
   );

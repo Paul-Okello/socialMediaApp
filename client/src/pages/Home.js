@@ -12,7 +12,7 @@ const Home = () => {
   }
   return (
     <Grid columns="three" style={{ margin: "10px" }}>
-      <Grid.Row>
+      <Grid.Row className="home__title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       {loading ? (

@@ -1,0 +1,16 @@
+.home__title {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+.form__container {
+  width: 400px;
+  margin: auto;
+}
+@media screen and (max-width: 600px) {
+  .form__container {
+    width: 300px;
+    margin: auto;
+  }
+}
