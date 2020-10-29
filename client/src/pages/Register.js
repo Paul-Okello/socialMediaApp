@@ -3,27 +3,24 @@ import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 
-const Register = () => {
+const Register = (props) => {
   const [errors, setErrors] = useState({});
-  const [value, setValues] = useState({
+  const initialState = {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
-
-  const onChange = (e) => {
-    setValues({ ...value, [e.target.name]: e.target.value });
   };
+
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
-      console.log(result);
+    update(_, result) {
+      props.history.push("/");
     },
     onError(err) {
       console.log(err.graphQLErrors[0].extensions.exception.errors);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
-    variables: value,
+    variables: values,
   });
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +35,8 @@ const Register = () => {
           placeholder="Username..."
           name="username"
           type="text"
-          value={value.username}
+          error={errors.username ? true : false}
+          value={values.username}
           onChange={onChange}
         />
         <Form.Input
@@ -46,7 +44,8 @@ const Register = () => {
           placeholder="Email..."
           name="email"
           type="email"
-          value={value.email}
+          error={errors.email ? true : false}
+          value={values.email}
           onChange={onChange}
         />
         <Form.Input
@@ -54,7 +53,8 @@ const Register = () => {
           placeholder="Password..."
           name="password"
           type="password"
-          value={value.password}
+          error={errors.password ? true : false}
+          value={values.password}
           onChange={onChange}
         />
         <Form.Input
@@ -62,7 +62,8 @@ const Register = () => {
           placeholder="Confirm Password..."
           name="confirmPassword"
           type="password"
-          value={value.confirmPassword}
+          error={errors.confirmPassword ? true : false}
+          value={values.confirmPassword}
           onChange={onChange}
         />
         <Button type="submit" primary>
