@@ -4,6 +4,7 @@ import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 
 const Register = () => {
+  const [errors, setErrors] = useState({});
   const [value, setValues] = useState({
     username: "",
     email: "",
@@ -18,6 +19,10 @@ const Register = () => {
     update(proxy, result) {
       console.log(result);
     },
+    onError(err) {
+      console.log(err.graphQLErrors[0].extensions.exceptions.errors);
+      setErrors(err.graphQLErrors[0].extensions.exceptions.errors);
+    },
     variables: value,
   });
   const onSubmit = (e) => {
@@ -26,12 +31,13 @@ const Register = () => {
   };
   return (
     <div className="form__container">
-      <Form onSubmit={onSubmit} noValidate>
+      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
         <h1>Register</h1>
         <Form.Input
           label="Username"
           placeholder="Username..."
           name="username"
+          type="text"
           value={value.username}
           onChange={onChange}
         />
@@ -39,6 +45,7 @@ const Register = () => {
           label="Email"
           placeholder="Email..."
           name="email"
+          type="email"
           value={value.email}
           onChange={onChange}
         />
@@ -46,6 +53,7 @@ const Register = () => {
           label="Password"
           placeholder="Password..."
           name="password"
+          type="password"
           value={value.password}
           onChange={onChange}
         />
@@ -53,6 +61,7 @@ const Register = () => {
           label="Confirm Password"
           placeholder="Confirm Password..."
           name="confirmPassword"
+          type="password"
           value={value.confirmPassword}
           onChange={onChange}
         />
