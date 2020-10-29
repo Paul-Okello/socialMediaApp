@@ -20,8 +20,8 @@ const Register = () => {
       console.log(result);
     },
     onError(err) {
-      console.log(err.graphQLErrors[0].extensions.exceptions.errors);
-      setErrors(err.graphQLErrors[0].extensions.exceptions.errors);
+      console.log(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: value,
   });
@@ -69,6 +69,15 @@ const Register = () => {
           Register
         </Button>
       </Form>
+      {Object.keys(errors).length > 0 && (
+        <div className="ui error message">
+          <ul className="list">
+            {Object.values(errors).map((value) => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
