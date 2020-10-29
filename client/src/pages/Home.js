@@ -5,13 +5,13 @@ import PostCard from "../components/PostCard";
 import { FETCH_POSTS_QUERY } from "../util/graphql";
 
 const Home = () => {
-  const {
-    loading,
-    data: { getPosts: posts },
-  } = useQuery(FETCH_POSTS_QUERY);
-
+  let posts = "";
+  const { loading, data } = useQuery(FETCH_POSTS_QUERY);
+  if (data) {
+    posts = data.getPosts;
+  }
   return (
-    <Grid columns="three">
+    <Grid columns="three" style={{ margin: "10px" }}>
       <Grid.Row>
         <h1>Recent Posts</h1>
       </Grid.Row>
@@ -20,7 +20,7 @@ const Home = () => {
       ) : (
         posts &&
         posts.map((post) => (
-          <Grid.Column key={post.id}>
+          <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
             <PostCard post={post} />
           </Grid.Column>
         ))
