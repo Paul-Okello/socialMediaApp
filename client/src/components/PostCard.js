@@ -21,7 +21,7 @@ const PostCard = ({
           src="https://static.wikia.nocookie.net/avatar/images/e/e1/Zaheer.png/revision/latest/top-crop/width/360/height/360?cb=20140825190111"
         />
         <Card.Header>{username}</Card.Header>
-        <Card.Meta as={Link} to={"/posts/`${id}`"}>
+        <Card.Meta as={Link} to={`/posts/${id}`}>
           {moment(createdAt).fromNow()}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
