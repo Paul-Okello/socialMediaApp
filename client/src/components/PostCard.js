@@ -3,6 +3,7 @@ import { Card, Icon, Label, Image, Button } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/auth";
+import LikeButton from "./LikeButton";
 
 const PostCard = ({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -13,7 +14,7 @@ const PostCard = ({
   }
 
   return (
-    <Card fluid>
+    <Card fluid className="card">
       <Card.Content>
         <Image
           floated="right"
@@ -27,15 +28,7 @@ const PostCard = ({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button as="div" labelPosition="right" onClick={likePost}>
-          <Button color="brown" basic>
-            <Icon name="heart" />
-            Like
-          </Button>
-          <Label as="a" basic color="red" pointing="left">
-            {likeCount}
-          </Label>
-        </Button>
+        <LikeButton user={user} post={{ id, likes, likeCount }} />
         <Button as="div" labelPosition="right" as={Link} to={`/posts/${id}`}>
           <Button color="blue" basic>
             <Icon name="comment" />
@@ -45,6 +38,7 @@ const PostCard = ({
             {commentCount}
           </Label>
         </Button>
+        {/* Ensures that you are the owner of the post */}
         {user && user.username === username && (
           <Button
             as="div"
