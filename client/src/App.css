@@ -14,3 +14,7 @@
     margin: auto;
   }
 }
+.ui.brown.button:focus,
+.ui.brown.ui.teal.buttons:focus {
+  background-color: brown;
+}
