@@ -14,6 +14,7 @@ import {
 import moment from "moment";
 import { AuthContext } from "../Context/auth";
 import LikeButton from "../components/LikeButton";
+import DeleteButton from "../components/DeleteButton";
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
@@ -76,6 +77,9 @@ function SinglePost(props) {
                     {commentCount}
                   </Label>
                 </Button>
+                {user && user.username === username && (
+                  <DeleteButton postId={id} />
+                )}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -83,7 +87,7 @@ function SinglePost(props) {
       </Grid>
     );
   }
-  return <div></div>;
+  return postMarkup;
 }
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {
