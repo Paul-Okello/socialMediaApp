@@ -27,11 +27,14 @@ function SinglePost(props) {
     },
   });
 
+  function deletePostCalllback() {
+    props.history.push("/");
+  }
   let postMarkup;
   if (!getPost) {
     postMarkup = (
       <Dimmer active>
-        <Loader size="massive">Loading posts...</Loader>
+        <Loader size="massive">Loading post...</Loader>
       </Dimmer>
     );
   } else {
@@ -51,7 +54,7 @@ function SinglePost(props) {
         <Grid.Row>
           <Grid.Column width={2}>
             <Image
-              src="https://static.wikia.nocookie.net/avatar/images/e/e1/Zaheer.png/revision/latest/top-crop/width/360/height/360?cb=20140825190111"
+              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
               size="small"
             />
           </Grid.Column>
@@ -78,7 +81,7 @@ function SinglePost(props) {
                   </Label>
                 </Button>
                 {user && user.username === username && (
-                  <DeleteButton postId={id} />
+                  <DeleteButton postId={id} callback={deletePostCalllback} />
                 )}
               </Card.Content>
             </Card>
